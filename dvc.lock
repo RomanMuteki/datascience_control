@@ -1,0 +1,19 @@
+schema: '2.0'
+stages:
+  training:
+    cmd: C:/Users/Roman/AppData/Local/Programs/Python/Python310/python.exe 
+      A:/educ/FoxesNN/main.py --epochs 10
+    deps:
+    - path: main.py
+      hash: md5
+      md5: d563cb20ff233a81de562f53de0e3673
+      size: 3703
+    - path: tree_ds.csv
+      hash: md5
+      md5: 69def0a3fcf83b2bc7ee687f5fcfb133
+      size: 150731
+    outs:
+    - path: best_fish_classifier.pth
+      hash: md5
+      md5: 4079b774072ac4227ca3c77cb02d5e6b
+      size: 44797195

@@ -4,7 +4,6 @@ from torch.utils.data import Dataset, DataLoader
 from PIL import Image
 import pandas as pd
 import random
-import mlflow
 
 from torchvision.models import ResNet18_Weights
 
@@ -62,11 +61,6 @@ lrate = 0.000136
 wdecay = 1e-7 * 6.4
 optimizer = torch.optim.AdamW(model.parameters(), lr=lrate, weight_decay=wdecay)
 
-mlflow.start_run(run_name="Fish_Classification_Run")
-mlflow.log_param("learning_rate", lrate)
-mlflow.log_param("weight_decay", wdecay)
-
-
 def train_model(model, criterion, optimizer, num_epochs=10):
     best_acc = 0.0
     for epoch in range(num_epochs):
@@ -94,8 +88,6 @@ def train_model(model, criterion, optimizer, num_epochs=10):
         epoch_loss = running_loss / len(train_loader.dataset)
         epoch_acc = corrects / total
         print(f'Train Loss: {epoch_loss:.4f}, Accuracy: {epoch_acc:.4f}')
-        mlflow.log_metric("train_loss", epoch_loss)
-        mlflow.log_metric("train_accuracy", epoch_acc)
 
         val_corrects = 0
         val_total = 0
@@ -111,12 +103,9 @@ def train_model(model, criterion, optimizer, num_epochs=10):
 
         val_acc = val_corrects / val_total
         print(f'Validation Accuracy: {val_acc:.4f}\n')
-        mlflow.log_metric("validation_accuracy", val_acc)
 
         if val_acc > best_acc:
             best_acc = val_acc
             torch.save(model.state_dict(), 'best_fish_classifier.pth')
-    mlflow.log_artifact("best_fish_classifier.pth")
 
-mlflow.end_run()
 train_model(model, criterion, optimizer, num_epochs=9)
