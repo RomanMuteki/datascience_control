@@ -1,0 +1,8 @@
+stages:
+  training:
+    cmd: "C:/Users/Roman/AppData/Local/Programs/Python/Python310/python.exe A:educ/FoxesNN/main.py --epochs 10"
+    deps:
+      - src/main.py
+      - data/fish_dataset.csv
+    outs:
+      - trained_models/best_fish_classifier.pth

@@ -1,14 +1,16 @@
 import os
 import pandas as pd
 import requests
+import time
 
 df = pd.read_csv('data/observ_cpt.csv')
-
+st_time = time.time()
 for index, row in df.iterrows():
-    if index < 1020:
-        continue
+    '''if index < 3000:
+        continue'''
     if index % 30 == 0:
-        print(f"Скачано {index} из 5687")
+        c_time = time.time()
+        print(f"Скачано {index} из 3000 за {c_time - st_time + 1} секунд - {index/(c_time - st_time+1)} из/сек")
 
     url = row['image_url']
     if index % 10 > 0:
