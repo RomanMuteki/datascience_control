@@ -5,8 +5,8 @@ import torch
 from torchvision import transforms
 import os
 
-classes = ["Acer_rubrum", "Cupressus_sempervirens", "Pinus_sylvestrus", "Prunus_serrulata", "Quercus_robur", "Sorbus_aucuparia"]
-
+classes = ['Esox_lucius', 'Cyprinus_carpio', 'Carcharodon_carcharias',
+           'Silurus_glanis', 'Delphinapterus_leucas']
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet18', weights=None)
@@ -25,7 +25,7 @@ class FishClassifierApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Классификация Рыб")
-        self.geometry("600x400")  # размер окна
+        self.geometry("600x400")
         self.img_label = None
         self.result_label = None
         self.create_widgets()
